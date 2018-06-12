@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using GalaSoft.MvvmLight.Command;
 namespace MouseSpeedChangerAdvanced
 {
     public class ViewModel : INotifyPropertyChanged

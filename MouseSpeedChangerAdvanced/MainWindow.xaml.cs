@@ -61,12 +61,12 @@ namespace MouseSpeedChangerAdvanced
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SaveMouseProfile(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void UseMouseProfile(object sender, RoutedEventArgs e)
         {
 
         }
