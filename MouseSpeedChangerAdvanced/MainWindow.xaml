@@ -5,8 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MouseSpeedChangerAdvanced"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="316">
     <Grid>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16">MouseSpeedChangerAdvanced</Label>
+        <ComboBox Grid.Row="1" Margin="5,5,5,5"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5,5,5,5">
+            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center">Swap mouse buttons</Label>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="3" Margin="5,0,5,0">
+            <Label>Mouse speed</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="217*"></ColumnDefinition>
+                    <ColumnDefinition Width="41*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Slider Maximum="25" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
+            </Grid>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="4" Margin="5,0,5,0">
+            <Label>Double click speed</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="217*"></ColumnDefinition>
+                    <ColumnDefinition Width="41*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Slider Maximum="25" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
+            </Grid>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="5" Margin="5,0,5,0">
+            <Label>scroll wheel speed</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="217*"></ColumnDefinition>
+                    <ColumnDefinition Width="41*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Slider Maximum="25" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="2" Margin="5,5,5,5" Click="Button_Click">Save profile</Button>
+            <Button Grid.Column="0" Margin="5,5,5,5" Click="Button_Click_1">Use profile</Button>
+        </Grid>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="2" Margin="5,5,5,5" Click="Button_Click_2">Exit app</Button>
+        </Grid>
         
     </Grid>
 </Window>
