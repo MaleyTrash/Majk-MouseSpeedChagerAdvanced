@@ -74,10 +74,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataLoader.cs" />
-    <Compile Include="MouseSetter.cs" />
-    <Compile Include="ProfileData.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="ViewModel\Classes\DataLoader.cs" />
+    <Compile Include="ViewModel\Classes\MouseSetter.cs" />
+    <Compile Include="ViewModel\Classes\ProfileData.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
