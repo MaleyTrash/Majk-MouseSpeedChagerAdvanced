@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MouseSpeedChangerAdvanced"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="316">
+        Title="MainWindow" Height="420" Width="316">
     <Grid>
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
@@ -16,58 +16,74 @@
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16">MouseSpeedChangerAdvanced</Label>
-        <ComboBox Grid.Row="1" Margin="5,5,5,5"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5,5,5,5">
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center">Swap mouse buttons</Label>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="3" Margin="5,0,5,0">
+        <ComboBox Grid.Row="1" Margin="5,5,5,5" ItemsSource="{Binding Path=allData,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="ProfileName" SelectedItem="{Binding Path=currentData,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelecteIndex,UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center">Profile name : </Label>
+            <TextBox TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,8,5,7" Grid.Column="1" Height="18" Text="{Binding currentData.ProfileName,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5,5,5,5">
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding currentData.MouseButtonSwap,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                <Label HorizontalAlignment="Center" VerticalAlignment="Center">Swap mouse buttons</Label>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="4" Margin="5,0,5,0">
             <Label>Mouse speed</Label>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="217*"></ColumnDefinition>
                     <ColumnDefinition Width="41*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Slider Maximum="25" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
+                <Slider Maximum="20" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding currentData.MouseSpeed,UpdateSourceTrigger=PropertyChanged}" Minimum="1"/>
+                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding currentData.MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
             </Grid>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="4" Margin="5,0,5,0">
+        <StackPanel Orientation="Vertical" Grid.Row="5" Margin="5,0,5,0">
             <Label>Double click speed</Label>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="217*"></ColumnDefinition>
                     <ColumnDefinition Width="41*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Slider Maximum="25" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
+                <Slider Maximum="5000" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding currentData.DoubleClickSpeed,UpdateSourceTrigger=PropertyChanged}" Minimum="500" SmallChange="500"/>
+                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding currentData.DoubleClickSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
             </Grid>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="5" Margin="5,0,5,0">
+        <StackPanel Orientation="Vertical" Grid.Row="6" Margin="5,0,5,0">
             <Label>scroll wheel speed</Label>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="217*"></ColumnDefinition>
                     <ColumnDefinition Width="41*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Slider Maximum="25" Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding MouseSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
+                <Slider Margin="5,5,5,5" IsSnapToTickEnabled="True" Value="{Binding currentData.ScrollWheelSpeed,UpdateSourceTrigger=PropertyChanged}" Minimum="2"/>
+                <Label Grid.Column="1" HorizontalAlignment="Center" Content="{Binding currentData.ScrollWheelSpeed,UpdateSourceTrigger=PropertyChanged}"></Label>
             </Grid>
         </StackPanel>
-        <Grid Grid.Row="6">
+        <Grid Grid.Row="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Margin="5,5,5,5" Click="Button_Click">Save profile</Button>
-            <Button Grid.Column="0" Margin="5,5,5,5" Click="Button_Click_1">Use profile</Button>
+            <Button Grid.Column="2" Margin="5,5,5,5" Command="{Binding saveSettings}">Save profile</Button>
+            <Button Grid.Column="0" Margin="5,5,5,5" Command="{Binding useSettings}">Use profile</Button>
         </Grid>
-        <Grid Grid.Row="7">
+        <Grid Grid.Row="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -75,6 +91,6 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="2" Margin="5,5,5,5" Click="Button_Click_2">Exit app</Button>
         </Grid>
-        
+
     </Grid>
 </Window>

@@ -28,7 +28,7 @@ namespace MouseSpeedChangerAdvanced
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            DataContext = new ViewModels();
             ShowInTaskbar = false;
             icon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(@"./megu_fvK_icon.ico");
             icon.DoubleClick += (s, args) => ShowMainWindow();
@@ -60,16 +60,7 @@ namespace MouseSpeedChangerAdvanced
         {
             System.Windows.Application.Current.Shutdown();
         }
-
-        private void SaveMouseProfile(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void UseMouseProfile(object sender, RoutedEventArgs e)
-        {
-
-        }
+      
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {

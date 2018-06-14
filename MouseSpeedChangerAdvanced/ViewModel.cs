@@ -1,53 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 namespace MouseSpeedChangerAdvanced
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModels : INotifyPropertyChanged
     {
-        private double _mouseSpeed;
-        private double _doubleClickSpeed;
-        private double _scrollWheelSpeed;
-        private bool _mouseButtonSwap;
+        private ProfileData _currentData = new ProfileData();
+        public ProfileData currentData {
+            get => _currentData;
+            set
+            {
+                _currentData = value;
+                OnPropertyChanged("currentData");
+            }
+        }
+        public RelayCommand saveSettings { get; private set; }
+        public RelayCommand useSettings { get; private set; }
+        
+        private int _selecteIndex = -1;
+        public int SelecteIndex
+        {
+            get => _selecteIndex;
+            set
+            {
+                _selecteIndex = value;
+                OnPropertyChanged("SelecteIndex");
+            }
+        }
+        public ObservableCollection<ProfileData> allData { get; set; } = new ObservableCollection<ProfileData>();
+        private DataLoader dataLoader = new DataLoader();
+        private MouseSetter mouseSetter = new MouseSetter();
+
         public event PropertyChangedEventHandler PropertyChanged;
-        public bool MouseButtonSwap
+
+        public ViewModels()
         {
-            get => _mouseButtonSwap;
-            set
-            {
-                _mouseButtonSwap = value;
-                OnPropertyChanged("MouseButtonSwap");
-            }
+            allData = dataLoader.LoadData();
+            saveSettings = new RelayCommand(this.saveProfile);
+            useSettings = new RelayCommand(this.useMouseSettings);
         }
-        public double MouseSpeed{
-            get => _mouseSpeed;
-            set
-            {
-                _mouseSpeed = value;
-                OnPropertyChanged("MouseSpeed");
-            }
-        }
-        public double DoubleClickSpeed
+        public void saveProfile()
         {
-            get => _doubleClickSpeed;
-            set
+            if (_selecteIndex < 0)
             {
-                _doubleClickSpeed = value;
-                OnPropertyChanged("DoubleClickSpeed");
+                allData.Add(_currentData);
             }
+            else
+            {
+                allData[_selecteIndex] = _currentData;
+            }
+            dataLoader.SaveData(allData);
         }
-        public double ScrollWheelSpeed
+        public void useMouseSettings()
         {
-            get => _scrollWheelSpeed;
-            set
-            {
-                _scrollWheelSpeed = value;
-                OnPropertyChanged("ScrollWheelSpeed");
-            }
+            mouseSetter.setMouse(_currentData);
         }
         protected void OnPropertyChanged(string name)
         {
